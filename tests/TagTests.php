@@ -45,4 +45,19 @@ class TagTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)Tag::p('test')->wrap('-', '+'),
 				    '-<p>test</p>+');
 	}
+
+	function test_getter(){
+		$this->assertEquals((string)Tag::p()->border('1px')->border,
+				    '1px');
+	}
+
+	function test_getter_unquoting(){
+		$this->assertEquals((string)Tag::p()->title('& hello \' " < >')->title,
+				    '& hello \' " < >');
+	}
+	function test_correct_name_assign(){
+		$this->assertEquals((string)Tag::input()->name('firstname'),
+				    '<input name="firstname">');
+	}
+
 }

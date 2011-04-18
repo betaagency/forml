@@ -1,5 +1,4 @@
 <?php
-
 class Tag{
 	static $short_tags = array('img', 'input');
 	var $name = '';
@@ -61,6 +60,12 @@ class Tag{
 		return str_replace(array('&','"',"'",'<','>'),
 				   array('&amp;','&quot;','&#39;','&lt;','&gt;'),
 				   $v);
+	}
+
+	function __get($name){
+		if(isset($this->attrs[$name]))
+			return $this->attrs[$name];
+		return false;
 	}
 
 	function __toString(){
