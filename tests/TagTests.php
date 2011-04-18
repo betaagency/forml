@@ -55,9 +55,39 @@ class TagTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)Tag::p()->title('& hello \' " < >')->title,
 				    '& hello \' " < >');
 	}
+
 	function test_correct_name_assign(){
 		$this->assertEquals((string)Tag::input()->name('firstname'),
 				    '<input name="firstname">');
 	}
 
+	function test_blank_tag(){
+		$this->assertEquals((string)Tag::blank(),
+				    '');
+		$this->assertEquals(Tag::blank()->to_array(),
+				    array());
+	}
+
+	function test_blank_tag_basic(){
+		$tag = Tag::blank(Tag::p('hello,'), Tag::p(' world!'));
+		$this->assertEquals((string)$tag,
+				    '<p>hello,</p><p> world!</p>');
+		$this->assertEquals(array_map('strval', $tag->to_array()),
+				    array('<p>hello,</p>','<p> world!</p>'));
+	}
+
+	function test_tag_to_array(){
+		$tag = Tag::div(Tag::p('Hello, World!'))
+			->id('content')->class('text')
+			->before(Tag::p('intro'))->after('out');
+
+		$this->assertEquals(array_map('strval', $tag->to_array()),
+				    array('<p>intro</p>',
+					  '<div id="content" class="text">','<p>Hello, World!</p>','</div>',
+					  'out'));
+		$this->assertEquals(array_map('gettype', $tag->to_array()),
+				    array('object',
+					  'string','object','string',
+					  'string'));
+	}
 }

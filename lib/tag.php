@@ -8,15 +8,15 @@ class Tag{
 
 	static function __callStatic($name, $args){
 		$tag = new Tag($name);
-		if(reset($args))
-			$tag->content(reset($args));
+		if(isset($args[0]))
+			$tag->content($args[0]);
 		return $tag;
 	}
 
 	var $attrs = array();
-	var $content = '';
-	var $before = '';
-	var $after = '';
+	var $content;
+	var $before;
+	var $after;
 	function __call($name, $args){
 		if($name == 'content'){
 			$this->content = $args[0];
@@ -38,7 +38,6 @@ class Tag{
 		}else{
 			$this->attrs[$name] = $args[0];
 		}
-
 		return $this;
 	}
 
@@ -69,13 +68,43 @@ class Tag{
 	}
 
 	function __toString(){
-		$r = '';
-		$r .= $this->before;
-		$r .= "<".$this->name.$this->tag_attrs().">";
-		$r .= $this->content;
-		if(!$this->is_short_tag())
-			$r .= "</".$this->name.">";
-		$r .= $this->after;
+		return implode('', $this->to_array());
+	}
+
+	static function blank(){
+		$args = func_get_args();
+		$tag = new self(false);
+		$tag->content = $args;
+		return $tag;
+	}
+
+	function to_array(){
+		$r = array();
+
+		$fn = function($what) use(&$r){
+			if(is_array($what)){
+				$r = array_merge($r, $what);
+			}else{
+				$r[] = $what;
+			}
+		};
+
+		if($this->before)
+			$fn($this->before);
+
+		if($this->name)
+			$r[] = "<".$this->name.$this->tag_attrs().">";
+
+		if($this->content)
+			$fn($this->content);
+
+		if($this->name)
+			if(!$this->is_short_tag())
+				$r[] = "</".$this->name.">";
+
+		if($this->after)
+			$fn($this->after);
+
 		return $r;
 	}
 }
