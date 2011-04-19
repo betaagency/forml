@@ -55,6 +55,14 @@ class Field extends Tag{
 			return $this->content($v);
 		return parent::__call('value', array($v));
 	}
+	var $_required = false;
+	function required(){
+		$this->_required = true;
+		return $this;
+	}
+	function is_required(){
+		return $this->_required;
+	}
 }
 
 function def_wrapper($name){
