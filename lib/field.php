@@ -1,6 +1,5 @@
 <?php
 namespace forml;
-use \Tag as Tag;
 require_once 'tag.php';
 class Field extends Tag{
 	var $label;
@@ -46,7 +45,6 @@ class Field extends Tag{
 	function id($v){
 		if($this->label)
 			$this->label->for($v);
-
 		return parent::__call('id', array($v));
 	}
 
@@ -55,14 +53,17 @@ class Field extends Tag{
 			return $this->content($v);
 		return parent::__call('value', array($v));
 	}
+
 	var $_required = false;
 	function required(){
 		$this->_required = true;
 		return $this;
 	}
+
 	function is_required(){
 		return $this->_required;
 	}
+
 }
 
 function def_wrapper($name){
@@ -76,3 +77,8 @@ def_wrapper('text');
 def_wrapper('labeled_text');
 def_wrapper('text_labeled');
 def_wrapper('textarea');
+
+function line(){
+	$args = func_get_args();
+	return Tag::div($args)->class('line');
+}

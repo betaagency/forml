@@ -23,7 +23,8 @@ class FormTests extends PHPUnit_Framework_TestCase{
 
 	function test_form_fields_list(){
 		$this->assertEquals(array_values(array_map(function($v){return $v->name;},
-							   f\form(f\text('firstname'),'<hr>',f\text('lastname'))->fields)),
+							   f\form(f\text('firstname'), '<hr>',
+								  f\text('lastname'))->fields)),
 				    array('firstname', 'lastname'));
 	}
 
@@ -40,15 +41,21 @@ class FormTests extends PHPUnit_Framework_TestCase{
 		$this->assertTrue($form->is_correct(array('lastname'=>'foo',
 							  'age'=>'15',
 							  'firstname'=>'bar')));
-
 		$this->assertFalse($form->is_correct(array('lastname'=>'foo',
 							   'age'=>'15')));
 	}
+
 	function test_form_value_filling(){
 		$this->assertEquals((string)f\form(f\text('firstname'),'<hr>',f\text('lastname'))
 				    ->fill(array('firstname'=>'bar', 'lastname'=>'foo')),
 				    '<form><input type="text" name="firstname" value="bar"><hr>'.
 				    '<input type="text" name="lastname" value="foo"></form>');
+	}
 
+	function test_recursive_finding_fields(){
+		$form = f\form(f\line(f\Tag::div(f\text('firstname'))), '<hr>', f\text('lastname'));
+		$this->assertEquals(array_values(array_map(function($v){return $v->name;},
+							   $form->fields)),
+				    array('firstname', 'lastname'));
 	}
 }

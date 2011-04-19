@@ -1,4 +1,5 @@
 <?php
+namespace forml;
 class Tag{
 	static $short_tags = array('img', 'input');
 	var $_name = '';
@@ -108,3 +109,4 @@ class Tag{
 		return $r;
 	}
 }
+

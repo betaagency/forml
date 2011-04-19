@@ -1,12 +1,23 @@
 <?php
 namespace forml;
-use \Tag as Tag;
 class Form extends Tag{
+
 	var $fields = array();
+	function find_fields($where){
+		if(is_array($where))
+			foreach($where as $v)
+				$this->find_fields($v);
+
+		if(is_object($where) and is_a($where, 'forml\Field'))
+			$this->fields[$where->name] = $where;
+
+		if(is_a($where, 'forml\Tag')){
+			$this->find_fields($where->to_array());
+		}
+	}
+
 	function content($args){
-		foreach($args as $arg)
-			if(is_a($arg, 'forml\Field'))
-				$this->fields[$arg->name] = $arg;
+		$this->find_fields($args);
 		return call_user_func_array(array('parent','__call'), array('content', array($args)));
 	}
 
