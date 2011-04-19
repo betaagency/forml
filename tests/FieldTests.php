@@ -42,4 +42,12 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\textarea('firstname')->value("Hello!"),
 				    '<textarea name="firstname">Hello!</textarea>');
 	}
+
+	function test_line(){
+		$this->assertEquals((string)f\line(''), '<div class="line"></div>');
+	}
+	function test_group(){
+		$this->assertEquals((string)f\group('legend', ' one ', ' two '),
+				    '<div class="group"><div class="legend">legend</div> one  two </div>');
+	}
 }
