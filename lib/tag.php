@@ -1,13 +1,13 @@
 <?php
 class Tag{
 	static $short_tags = array('img', 'input');
-	var $name = '';
+	var $_name = '';
 	function __construct($name){
-		$this->name = $name;
+		$this->_name = $name;
 	}
 
 	static function __callStatic($name, $args){
-		$tag = new Tag($name);
+		$tag = new static($name);
 		if(isset($args[0]))
 			$tag->content($args[0]);
 		return $tag;
@@ -42,7 +42,7 @@ class Tag{
 	}
 
 	function is_short_tag(){
-		if(in_array($this->name, self::$short_tags))
+		if(in_array($this->_name, self::$short_tags))
 			return true;
 	}
 
@@ -92,15 +92,15 @@ class Tag{
 		if($this->before)
 			$fn($this->before);
 
-		if($this->name)
-			$r[] = "<".$this->name.$this->tag_attrs().">";
+		if($this->_name)
+			$r[] = "<".$this->_name.$this->tag_attrs().">";
 
 		if($this->content)
 			$fn($this->content);
 
-		if($this->name)
+		if($this->_name)
 			if(!$this->is_short_tag())
-				$r[] = "</".$this->name.">";
+				$r[] = "</".$this->_name.">";
 
 		if($this->after)
 			$fn($this->after);

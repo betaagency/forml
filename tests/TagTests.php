@@ -90,4 +90,9 @@ class TagTests extends PHPUnit_Framework_TestCase{
 					  'string','object','string',
 					  'string'));
 	}
+
+	function test_tag_name(){
+		$tag = Tag::input()->name('firstname');
+		$this->assertEquals($tag->name, 'firstname');
+	}
 }

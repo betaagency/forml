@@ -51,7 +51,7 @@ class Field extends Tag{
 	}
 
 	function value($v){
-		if($this->name == 'textarea')
+		if($this->_name == 'textarea')
 			return $this->content($v);
 		return parent::__call('value', array($v));
 	}
