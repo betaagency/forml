@@ -55,5 +55,21 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 				    '<div class="group"> one  two </div>');
 	}
 
+	function test_select(){
+		$countries = array(2=>'russia', 3=>'france', 4=>'egypt');
+		$opts = '';
+		foreach($countries as $k=>$v)
+			$opts .= sprintf('<option value="%s">%s</option>', $k, $v);
 
+		$this->assertEquals((string)f\select('country', $countries),
+				    '<select name="country">'.$opts.'</select>');
+	}
+	function test_select_with_value(){
+		$countries = array(2=>'russia', 3=>'france', 4=>'egypt');
+		$opts = '';
+		foreach($countries as $k=>$v)
+			$opts .= sprintf('<option value="%s"%s>%s</option>', $k,(($k==3) ? ' selected': ''), $v);
+		$this->assertEquals((string)f\select('country', $countries)->value(3),
+				    '<select name="country">'.$opts.'</select>');
+	}
 }

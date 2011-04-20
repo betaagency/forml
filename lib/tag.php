@@ -21,6 +21,8 @@ class Tag{
 	function __call($name, $args){
 		if($name == 'content'){
 			$this->content = $args[0];
+		}elseif($name == 'selected'){
+			$this->attrs['selected'] = true;
 		}elseif($name == 'before'){
 			$this->before = $args[0];
 		}elseif($name == 'after'){
@@ -51,8 +53,12 @@ class Tag{
 		if(!$this->attrs)
 			return '';
 		$a = array();
-		foreach($this->attrs as $k=>$v)
-			$a[] = $k.'="'.self::escape($v).'"';
+		foreach($this->attrs as $k=>$v){
+			if($k != 'selected')
+				$a[] = $k.'="'.self::escape($v).'"';
+			else
+				$a[] = 'selected';
+		}
 		return ' '.implode(' ', $a);
 	}
 
@@ -108,5 +114,6 @@ class Tag{
 
 		return $r;
 	}
+
 }
 

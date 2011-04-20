@@ -51,6 +51,13 @@ class Field extends Tag{
 	function value($v){
 		if($this->_name == 'textarea')
 			return $this->content($v);
+		if($this->_name == 'select'){
+			foreach($this->content as $opt)
+				if($opt->value == $v)
+					$opt->selected();
+			return $this;
+		}
+
 		return parent::__call('value', array($v));
 	}
 
@@ -90,7 +97,18 @@ function legend_group(){
 	array_unshift($args, Tag::div($legend)->class('legend'));
 	return Tag::div($args)->class('group');
 }
+
 function group(){
 	$args = func_get_args();
 	return Tag::div($args)->class('group');
+}
+
+function select($name, $options = array()){
+	$opts = array();
+
+	foreach($options as $k=>$v)
+		$opts[] = Tag::option($v)->value($k);
+
+	$tag = Field::select($opts)->name($name);
+	return $tag;
 }

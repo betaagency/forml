@@ -96,4 +96,9 @@ class TagTests extends PHPUnit_Framework_TestCase{
 		$tag = Tag::input()->name('firstname');
 		$this->assertEquals($tag->name, 'firstname');
 	}
+
+	function test_tag_selected(){
+		$tag = Tag::option("russia")->value(3)->selected();
+		$this->assertEquals((string)$tag, '<option value="3" selected>russia</option>');
+	}
 }
