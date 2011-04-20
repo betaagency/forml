@@ -72,4 +72,9 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\select('country', $countries)->value(3),
 				    '<select name="country">'.$opts.'</select>');
 	}
+	function test_label(){
+		$this->assertEquals((string)f\label('Страна'),'<label>Страна</label>');
+		$this->assertEquals((string)f\label('Страна', 'country'),'<label for="country">Страна</label>');
+		$this->assertEquals((string)f\label('Страна')->for("country"),'<label for="country">Страна</label>');
+	}
 }

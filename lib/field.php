@@ -112,3 +112,9 @@ function select($name, $options = array()){
 	$tag = Field::select($opts)->name($name);
 	return $tag;
 }
+
+function label($name, $for = false){
+	if($for)
+		return Tag::label($name)->for($for);
+	return Tag::label($name);
+}
