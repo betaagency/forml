@@ -2,39 +2,6 @@
 namespace forml;
 require_once 'tag.php';
 class Field extends Tag{
-	var $label;
-
-	static function text($name){
-		$obj = new Field('input');
-		$obj->type('text')->name($name);
-		return $obj;
-	}
-
-	static function text_labeled($name, $label, $id = false){
-		$obj = static::text($name);
-		$label = label($label, $id);
-		$obj->label = $label;
-
-		if($id)
-			$obj->id($id);
-
-		$obj->after($label);
-		return $obj;
-	}
-
-	static function labeled_text($label, $name, $id = false){
-		$obj = static::text($name);
-
-		$label = label($label, $id);
-		$obj->label = $label;
-
-		if($id)
-			$obj->id($id);
-
-		$obj->before($label);
-		return $obj;
-	}
-
 	static function textarea($name){
 		$obj = new Field('textarea');
 		$obj->name($name);
@@ -79,7 +46,14 @@ function def_wrapper($name){
 	     'return call_user_func_array(array(\'forml\Field\',\''.$name.'\'), $args);}');
 }
 
-def_wrapper('text');
+function text($name = false){
+	$obj = new Field('input');
+	$obj->type('text');
+	if($name)
+		$obj->name($name);
+	return $obj;
+}
+
 def_wrapper('labeled_text');
 def_wrapper('text_labeled');
 def_wrapper('textarea');

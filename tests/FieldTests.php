@@ -6,31 +6,9 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 				    '<input type="text" name="firstname">');
 	}
 
-	function test_labeled_text(){
-		$this->assertEquals((string)f\labeled_text('Имя:', 'firstname'),
-				    '<label>Имя:</label><input type="text" name="firstname">');
-	}
-
-	function test_labeled_text_with_id(){
-		$this->assertEquals((string)f\labeled_text('Имя:', 'firstname', 'name-id'),
-				    '<label for="name-id">Имя:</label>'.
-				    '<input type="text" name="firstname" id="name-id">');
-	}
-
-	function test_assign_id_to_labeled_text(){
-		$this->assertEquals((string)f\labeled_text('Имя:', 'firstname')->id('name-id'),
-				    '<label for="name-id">Имя:</label>'.
-				    '<input type="text" name="firstname" id="name-id">');
-	}
-
 	function test_text_with_value(){
 		$this->assertEquals((string)f\text('firstname')->value("Лёша"),
 				    '<input type="text" name="firstname" value="Лёша">');
-	}
-
-	function test_text_labeled(){
-		$this->assertEquals((string)f\text_labeled('firstname',':имя'),
-				    '<input type="text" name="firstname"><label>:имя</label>');
 	}
 
 	function test_textarea(){
@@ -76,5 +54,8 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\label('Страна'),'<label>Страна</label>');
 		$this->assertEquals((string)f\label('Страна', 'country'),'<label for="country">Страна</label>');
 		$this->assertEquals((string)f\label('Страна')->for("country"),'<label for="country">Страна</label>');
+	}
+	function test_text_without_name(){
+		$this->assertEquals((string)f\text(), '<input type="text">');
 	}
 }
