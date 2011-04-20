@@ -12,12 +12,11 @@ class Field extends Tag{
 
 	static function text_labeled($name, $label, $id = false){
 		$obj = static::text($name);
-		$label = Tag::label()->content($label);
+		$label = label($label, $id);
 		$obj->label = $label;
-		if($id){
-			$label->for($id);
+
+		if($id)
 			$obj->id($id);
-		}
 
 		$obj->after($label);
 		return $obj;
@@ -25,12 +24,12 @@ class Field extends Tag{
 
 	static function labeled_text($label, $name, $id = false){
 		$obj = static::text($name);
-		$label = Tag::label()->content($label);
+
+		$label = label($label, $id);
 		$obj->label = $label;
-		if($id){
-			$label->for($id);
+
+		if($id)
 			$obj->id($id);
-		}
 
 		$obj->before($label);
 		return $obj;
