@@ -83,10 +83,14 @@ function line(){
 	return Tag::div($args)->class('line');
 }
 
-function group(){
+function legend_group(){
 	// Первый аргумент - легенда группы
 	$args = func_get_args();
 	$legend = array_shift($args);
 	array_unshift($args, Tag::div($legend)->class('legend'));
+	return Tag::div($args)->class('group');
+}
+function group(){
+	$args = func_get_args();
 	return Tag::div($args)->class('group');
 }

@@ -46,8 +46,14 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 	function test_line(){
 		$this->assertEquals((string)f\line(''), '<div class="line"></div>');
 	}
-	function test_group(){
-		$this->assertEquals((string)f\group('legend', ' one ', ' two '),
+	function test_legend_group(){
+		$this->assertEquals((string)f\legend_group('legend', ' one ', ' two '),
 				    '<div class="group"><div class="legend">legend</div> one  two </div>');
 	}
+	function test_group(){
+		$this->assertEquals((string)f\group(' one ', ' two '),
+				    '<div class="group"> one  two </div>');
+	}
+
+
 }
