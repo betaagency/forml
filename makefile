@@ -6,3 +6,4 @@ mbs:
 	cp lib/* ~/mbs/lib/forml
 demo:
 	php demo.php > demo.html
+	chromium-browser demo.html
