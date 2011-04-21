@@ -98,3 +98,10 @@ function file($name = false){
 		$f->name($name);
 	return $f;
 }
+
+function submit($value = false){
+	$f = Field::input()->type('submit');
+	if($value)
+		$f->value($value);
+	return $f;
+}

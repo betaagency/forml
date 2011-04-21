@@ -72,4 +72,11 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\textarea('text')->value('& hello \' " < >'),
 				    '<textarea name="text">&amp; hello &#39; &quot; &lt; &gt;</textarea>');
 	}
+
+	function test_submit(){
+		$this->assertEquals((string)f\submit('Отправить'),
+				    '<input type="submit" value="Отправить">');
+		$this->assertEquals((string)f\submit(),
+				    '<input type="submit">');
+	}
 }
