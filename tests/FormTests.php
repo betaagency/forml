@@ -58,4 +58,9 @@ class FormTests extends PHPUnit_Framework_TestCase{
 							   $form->fields)),
 				    array('firstname', 'lastname'));
 	}
+
+	function test_form_with_file(){
+		$this->assertEquals((string)f\form(f\file('img')),
+				    '<form enctype="multipart/form-data"><input type="file" name="img"></form>');
+	}
 }
