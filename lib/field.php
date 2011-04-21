@@ -91,3 +91,10 @@ function label($name, $for = false){
 		return Tag::label($name)->for($for);
 	return Tag::label($name);
 }
+
+function file($name = false){
+	$f = Field::input()->type('file');
+	if($name)
+		$f->name($name);
+	return $f;
+}
