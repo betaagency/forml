@@ -67,4 +67,9 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\file(), '<input type="file">');
 		$this->assertEquals((string)f\file('img'), '<input type="file" name="img">');
 	}
+
+	function test_escape_in_textarea_value(){
+		$this->assertEquals((string)f\textarea('text')->value('& hello \' " < >'),
+				    '<textarea name="text">&amp; hello &#39; &quot; &lt; &gt;</textarea>');
+	}
 }

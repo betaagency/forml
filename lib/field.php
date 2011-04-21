@@ -16,7 +16,7 @@ class Field extends Tag{
 
 	function value($v){
 		if($this->_name == 'textarea')
-			return $this->content($v);
+			return $this->content(self::escape($v));
 		if($this->_name == 'select'){
 			foreach($this->content as $opt)
 				if($opt->value == $v)
