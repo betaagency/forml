@@ -28,10 +28,15 @@ class Field extends Tag{
 	}
 
 	var $_required = false;
-	function required(){
+	var $_required_text;
+	function required($text = ''){
+		$this->_required_text = $text;
 		$this->_required = true;
 		$this->class('required');
 		return $this;
+	}
+	function errors(){
+
 	}
 
 	function is_required(){

@@ -63,4 +63,11 @@ class FormTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\form(f\file('img')),
 				    '<form enctype="multipart/form-data"><input type="file" name="img"></form>');
 	}
+
+	function test_errors_in_form(){
+		$form = f\form(f\text('firstname')->required('Имя не заполнено!'));
+		$this->assertEquals($form->errors(array()),
+				    array('Имя не заполнено!'));
+	}
+
 }

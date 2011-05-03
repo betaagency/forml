@@ -36,6 +36,15 @@ class Form extends Tag{
 			}
 		return $this;
 	}
+	function errors(){
+		$return = array();
+		foreach($this->fields as $f){
+			if($f->is_required())
+				if(!isset($array[$f->name]) or !trim($array[$f->name]))
+					$return[] = $f->_required_text;
+		}
+		return $return;
+	}
 	function is_correct($array){
 		$errors = false;
 		foreach($this->fields as $f){
