@@ -79,4 +79,15 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals((string)f\submit(),
 				    '<input type="submit">');
 	}
+
+	function test_label_required(){
+		$this->assertEquals((string)f\label('Страна')->required(),
+				    '<label class="required">Страна <span>*</span></label>');
+	}
+
+	function test_text_required(){
+		$this->assertEquals((string)f\text('firstname')->required(),
+				    '<input type="text" name="firstname" class="required">');
+	}
+
 }

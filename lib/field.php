@@ -30,6 +30,7 @@ class Field extends Tag{
 	var $_required = false;
 	function required(){
 		$this->_required = true;
+		$this->class('required');
 		return $this;
 	}
 
@@ -85,11 +86,17 @@ function select($name, $options = array()){
 	$tag = Field::select($opts)->name($name);
 	return $tag;
 }
-
+class Label extends Tag{
+	function required(){
+		$this->class('required');
+		$this->content = $this->content .' <span>*</span>';
+		return $this;
+	}
+}
 function label($name, $for = false){
 	if($for)
-		return Tag::label($name)->for($for);
-	return Tag::label($name);
+		return Label::label($name)->for($for);
+	return Label::label($name);
 }
 
 function file($name = false){
