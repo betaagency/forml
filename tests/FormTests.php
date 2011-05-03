@@ -75,5 +75,27 @@ class FormTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($form->errors(array('firstname'=>"qwe")),
 				    array());
 	}
+	function test_validators_is_correct(){
+		$form = f\form()->validators(function($r){ if($r['age']<18) return 'Возраст неправильный'; },
+					     function($r){ if(!$r['agreed'])
+							     return 'Надо согласиться с соглашением'; });
+		$this->assertTrue($form->is_correct(array('age'=>19, 'agreed'=>1)));
+
+		$this->assertFalse($form->is_correct(array('age'=>17, 'agreed'=>1)));
+		$this->assertFalse($form->is_correct(array('age'=>19, 'agreed'=>0)));
+		$this->assertFalse($form->is_correct(array('age'=>17, 'agreed'=>0)));
+	}
+	function test_validators_errors(){
+		$form = f\form()->validators(function($r){ if($r['age']<18) return 'Возраст неправильный'; },
+					     function($r){ if(!$r['agreed'])
+							     return 'Надо согласиться с соглашением'; });
+		$this->assertEquals($form->errors(array('age'=>19, 'agreed'=>1)), array());
+		$this->assertEquals($form->errors(array('age'=>17, 'agreed'=>1)),
+				    array('Возраст неправильный'));
+		$this->assertEquals($form->errors(array('age'=>17, 'agreed'=>0)),
+				    array('Возраст неправильный',
+					  'Надо согласиться с соглашением'));
+
+	}
 
 }

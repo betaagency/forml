@@ -38,6 +38,13 @@ class Form extends Tag{
 	}
 	function errors($array){
 		$return = array();
+
+		foreach($this->_validators as $v){
+			$err = $v($array);
+			if($err)
+				$return[] = $err;
+		}
+
 		foreach($this->fields as $f){
 			if($f->is_required())
 				if(!isset($array[$f->name]) or !trim($array[$f->name]))
@@ -47,12 +54,23 @@ class Form extends Tag{
 	}
 	function is_correct($array){
 		$errors = false;
+
+		foreach($this->_validators as $v)
+			if($v($array))
+				$errors = true;
+
 		foreach($this->fields as $f){
 			if($f->is_required())
 				if(!isset($array[$f->name]) or !trim($array[$f->name]))
 					$errors = true;
 		}
 		return !$errors;
+	}
+	var $_validators = array();
+	function validators(){
+		$args = func_get_args();
+		$this->_validators = $args;
+		return $this;
 	}
 }
 function form(){
