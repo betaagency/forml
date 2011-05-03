@@ -35,9 +35,6 @@ class Field extends Tag{
 		$this->class('required');
 		return $this;
 	}
-	function errors(){
-
-	}
 
 	function is_required(){
 		return $this->_required;

@@ -36,7 +36,7 @@ class Form extends Tag{
 			}
 		return $this;
 	}
-	function errors(){
+	function errors($array){
 		$return = array();
 		foreach($this->fields as $f){
 			if($f->is_required())

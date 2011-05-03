@@ -70,4 +70,10 @@ class FormTests extends PHPUnit_Framework_TestCase{
 				    array('Имя не заполнено!'));
 	}
 
+	function test_no_errors_in_form(){
+		$form = f\form(f\text('firstname')->required('Имя не заполнено!'));
+		$this->assertEquals($form->errors(array('firstname'=>"qwe")),
+				    array());
+	}
+
 }
