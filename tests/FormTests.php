@@ -95,7 +95,13 @@ class FormTests extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($form->errors(array('age'=>17, 'agreed'=>0)),
 				    array('Возраст неправильный',
 					  'Надо согласиться с соглашением'));
+	}
 
+	function test_validators_errors_merge(){
+		$form = f\form()->validators(function($r){ return array('one','two');},
+					     function($r){ return 'three';});
+		$this->assertEquals($form->errors(array()),
+				    array('one','two','three'));
 	}
 
 }

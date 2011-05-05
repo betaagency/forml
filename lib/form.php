@@ -41,8 +41,13 @@ class Form extends Tag{
 
 		foreach($this->_validators as $v){
 			$err = $v($array);
-			if($err)
-				$return[] = $err;
+			if($err){
+				if(is_array($err))
+					foreach($err as $v)
+						$return[] = $v;
+				else
+					$return[] = $err;
+			}
 		}
 
 		foreach($this->fields as $f){
