@@ -51,6 +51,24 @@ class FormTests extends PHPUnit_Framework_TestCase{
 				    '<form><input type="text" name="firstname" value="bar"><hr>'.
 				    '<input type="text" name="lastname" value="foo"></form>');
 	}
+	function test_form_radio_filling(){
+		$this->assertEquals((string)f\form(f\radio('age', 15),
+						   f\radio('age', 20),
+						   f\radio('age', 25))
+				    ->fill(array('age'=>'20')),
+				    '<form>'.
+				    '<input type="radio" name="age" value="15">'.
+				    '<input type="radio" name="age" value="20" checked="checked">'.
+				    '<input type="radio" name="age" value="25">'.
+				    '</form>');
+	}
+
+	function test_all_radios_registered_in_fields(){
+		$this->assertEquals(count(f\form(f\radio('age', 15),
+						 f\radio('age', 20),
+						 f\radio('age', 25))->fields),
+				    3);
+	}
 
 	function test_recursive_finding_fields(){
 		$form = f\form(f\line(f\Tag::div(f\text('firstname'))), '<hr>', f\text('lastname'));

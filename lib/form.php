@@ -7,7 +7,7 @@ class Form extends Tag{
 			foreach($where as $v)
 				$this->find_fields($v);
 		if(is_object($where) and is_a($where, 'forml\Field'))
-			$this->fields[$where->name] = $where;
+			$this->fields[] = $where;
 		if(is_a($where, 'forml\Tag')){
 			$this->find_fields($where->to_array());
 		}
@@ -30,10 +30,17 @@ class Form extends Tag{
 		return $return;
 	}
 	function fill($array){
-		foreach($array as $k=>$v)
-			if(isset($this->fields[$k])){
-				$this->fields[$k]->value($v);
+		foreach($array as $k=>$v){
+			foreach($this->fields as $field){
+				if($field->type == 'radio'){
+					if($field->name == $k and $field->value == $v)
+						$field->checked('checked');
+				}else{
+					if($field->name == $k)
+						$field->value($v);
+				}
 			}
+		}
 		return $this;
 	}
 	function errors($array){
