@@ -95,6 +95,11 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 				    '<input type="radio" name="firstname">');
 	}
 
+	function test_radio_without_args(){
+		$this->assertEquals((string)f\radio(),
+				    '<input type="radio">');
+	}
+
 	function test_radio_with_value(){
 		$this->assertEquals((string)f\radio('firstname', 'foo-bar'),
 				    '<input type="radio" name="firstname" value="foo-bar">');

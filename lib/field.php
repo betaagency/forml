@@ -115,9 +115,10 @@ function submit($value = false){
 	return $f;
 }
 
-function radio($name, $value = false){
+function radio($name = false, $value = false){
 	$f = Field::input()->type('radio');
-	$f->name($name);
+	if($name)
+		$f->name($name);
 	if($value)
 		$f->value($value);
 	return $f;
