@@ -84,6 +84,19 @@ class Form extends Tag{
 		$this->_validators = $args;
 		return $this;
 	}
+
+	var $_clearers = array();
+
+	function clearers(){
+		$args = func_get_args();
+		$this->_clearers = $args;
+		return $this;
+	}
+	function clear($r){
+		foreach($this->_clearers as $v)
+			$r = $v($r);
+		return $r;
+	}
 }
 function form(){
 	$args = func_get_args();
