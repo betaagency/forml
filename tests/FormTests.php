@@ -63,6 +63,18 @@ class FormTests extends PHPUnit_Framework_TestCase{
 				    '</form>');
 	}
 
+	function test_form_checkbox_filling(){
+		$this->assertEquals((string)f\form(f\checkbox('age', 15),
+						   f\checkbox('age', 20),
+						   f\checkbox('age', 25))
+				    ->fill(array('age'=>'20')),
+				    '<form>'.
+				    '<input type="checkbox" name="age" value="15">'.
+				    '<input type="checkbox" name="age" value="20" checked="checked">'.
+				    '<input type="checkbox" name="age" value="25">'.
+				    '</form>');
+	}
+
 	function test_all_radios_registered_in_fields(){
 		$this->assertEquals(count(f\form(f\radio('age', 15),
 						 f\radio('age', 20),

@@ -23,8 +23,12 @@ class Field extends Tag{
 					$opt->selected();
 			return $this;
 		}
-
 		return parent::__call('value', array($v));
+	}
+
+	function checked(){
+		return parent::__call('checked', array('checked'));
+		return $this;
 	}
 
 	var $_required = false;
@@ -117,6 +121,15 @@ function submit($value = false){
 
 function radio($name = false, $value = false){
 	$f = Field::input()->type('radio');
+	if($name)
+		$f->name($name);
+	if($value)
+		$f->value($value);
+	return $f;
+}
+
+function checkbox($name = false, $value = false){
+	$f = Field::input()->type('checkbox');
 	if($name)
 		$f->name($name);
 	if($value)

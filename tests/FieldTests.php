@@ -90,6 +90,23 @@ class FieldTests extends PHPUnit_Framework_TestCase{
 				    '<input type="text" name="firstname" class="required">');
 	}
 
+	function test_checkbox(){
+		$this->assertEquals((string)f\checkbox('agreed', 'yes'),
+				    '<input type="checkbox" name="agreed" value="yes">');
+	}
+
+	function test_checkbox_without_args(){
+		$this->assertEquals((string)f\checkbox(),
+				    '<input type="checkbox">');
+	}
+
+	function test_checked_checkbox(){
+		$this->assertEquals((string)f\checkbox()->checked(),
+				    '<input type="checkbox" checked="checked">');
+	}
+
+
+
 	function test_radio(){
 		$this->assertEquals((string)f\radio('firstname'),
 				    '<input type="radio" name="firstname">');

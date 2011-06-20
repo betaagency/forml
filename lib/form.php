@@ -32,7 +32,7 @@ class Form extends Tag{
 	function fill($array){
 		foreach($array as $k=>$v){
 			foreach($this->fields as $field){
-				if($field->type == 'radio'){
+				if(in_array($field->type, array('radio', 'checkbox'))){
 					if($field->name == $k and $field->value == $v)
 						$field->checked('checked');
 				}else{
